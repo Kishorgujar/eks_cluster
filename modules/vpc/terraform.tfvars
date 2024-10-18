@@ -8,4 +8,3 @@ private_subnet2_cidrs = ["192.168.64.0/20"]
 private_subnet3_cidrs = ["192.168.80.0/20"]
 private_subnet4_cidrs = ["192.168.96.0/20"]
 azs                 = ["ap-south-1a", "ap-south-1b"]
-
