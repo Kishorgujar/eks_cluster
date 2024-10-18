@@ -37,4 +37,3 @@ resource "aws_security_group" "eks_security_group" {
     Name = "eks-security-group"
   }
 }
-
