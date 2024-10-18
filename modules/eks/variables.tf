@@ -80,5 +80,8 @@ variable "endpoint_public_access" {
   type        = bool
   default     = true
 }
-
-
+variable "load_balancer_controller_policy_name" {
+  description = "ARN of the Load Balancer Controller policy"
+  type        = string
+  default = "AWSLoadBalancerControllerIAMPolicy"
+}
