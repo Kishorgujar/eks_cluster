@@ -16,4 +16,3 @@ output "cluster_certificate_authority" {
 output "cluster_id" {
   value = aws_eks_cluster.this.id
 }
-
