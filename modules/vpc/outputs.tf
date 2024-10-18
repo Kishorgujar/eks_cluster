@@ -25,4 +25,3 @@ output "public_pub_subnet2_ids" {
 output "vpc_id" {
   value = aws_vpc.public_vpc.id
 }
-
