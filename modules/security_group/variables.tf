@@ -7,4 +7,3 @@ variable "allowed_cidrs" {
   description = "List of CIDR blocks allowed to access the EKS cluster."
   type        = list(string)
 }
-
