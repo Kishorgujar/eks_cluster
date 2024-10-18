@@ -11,7 +11,6 @@ resource "aws_iam_role" "eks_role" {
 data "aws_iam_policy_document" "eks_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
-    
     principals {
       type        = "Service"
       identifiers = ["eks.amazonaws.com"]
@@ -43,7 +42,6 @@ resource "aws_iam_role" "node_role" {
 data "aws_iam_policy_document" "node_assume_role_policy" {
   statement {
     actions = ["sts:AssumeRole"]
-
     principals {
       type        = "Service"
       identifiers = ["ec2.amazonaws.com"]
@@ -79,6 +77,7 @@ resource "aws_iam_policy" "allow_pass_role" {
         Effect = "Allow"
         Action = "iam:PassRole"
         Resource = aws_iam_role.node_role.arn
+        # Remove or adjust the condition for same-account deployments
       }
     ]
   })
@@ -125,4 +124,23 @@ resource "aws_iam_policy" "AWS_LoadBalancer_Controller_Policy" {
   })
 }
 
+# IAM Role for Load Balancer Controller
+resource "aws_iam_role" "EKS_LB_CNI_Role" {
+  name               = "lb-cni-role"
+  assume_role_policy = data.aws_iam_policy_document.EKS_VPC_CNI_assume_role_policy_LB.json
+}
 
+data "aws_iam_policy_document" "EKS_VPC_CNI_assume_role_policy_LB" {
+  statement {
+    actions = ["sts:AssumeRole"]
+    principals {
+      type        = "Service"
+      identifiers = ["elasticloadbalancing.amazonaws.com"]
+    }
+  }
+}
+
+resource "aws_iam_role_policy_attachment" "EKS_LB_CNI_Role_Attachment" {
+  policy_arn = aws_iam_policy.AWS_LoadBalancer_Controller_Policy.arn
+  role       = aws_iam_role.EKS_LB_CNI_Role.name
+}
