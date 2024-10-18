@@ -150,5 +150,3 @@ resource "aws_route_table_association" "private_sub4_association" {
   subnet_id      = aws_subnet.private_sub4[count.index].id
   route_table_id = aws_route_table.private_route1.id
 }
-
-
